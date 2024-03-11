@@ -1,8 +1,8 @@
 package lk.ijse.dep.service;
 
 public interface Board {
-    public static final int NUM_OF_ROWS = 5;
-    public static final int NUM_OF_COLS = 6;
+    int NUM_OF_ROWS = 5;
+    int NUM_OF_COLS = 6;
 
     BoardUI getBoardUI();
     int findNextAvailableSpot(int col);

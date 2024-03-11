@@ -45,6 +45,9 @@ public class Winner {
     public void setRow2(int row2) {
         this.row2 = row2;
     }
+    public String toString() {
+        return "Winner{winningPiece=" + this.winningPiece + ", col1=" + this.col1 + ", row1=" + this.row1 + ", col2=" + this.col2 + ", row2=" + this.row2 + "}";
+    }
 
     public Winner(Piece winningPiece) {
         this.winningPiece = winningPiece;

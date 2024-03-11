@@ -5,7 +5,13 @@ public class BoardImpl implements Board{
     private final BoardUI boardUI;
 
     public BoardImpl(BoardUI boardUI){
-        this.boardUI=boardUI;
+        for(int i = 0; i < 6; ++i) {
+            for(int j = 0; j < 5; ++j) {
+                this.pieces[i][j] = Piece.EMPTY;
+            }
+        }
+
+        this.boardUI = boardUI;
     }
     @Override
     public BoardUI getBoardUI() {
@@ -49,26 +55,30 @@ public class BoardImpl implements Board{
 
     @Override
     public Winner findWinner() {
-        for (int row = 0; row < pieces.length; row++) {
-            for (int col = 0; col < pieces[0].length; col++) {
-                Piece piece = pieces[row][col];
-                if (piece!=Piece.EMPTY) {
-                    int spot = findNextAvailableSpot(col);
-                    if (col+3 < spot &&
-                            piece==pieces[row][col+1] &&
-                            piece==pieces[row][col+2] &&
-                            piece==pieces[row][col+3]) {
-                        return new Winner(piece);
-                    }
-                    if (row+3 < spot &&
-                            piece==pieces[row+1][col] &&
-                            piece==pieces[row+2][col] &&
-                            piece==pieces[row+3][col]) {
-                        return new Winner(piece);
-                    }
+        for (int row = 0; row < NUM_OF_ROWS; row++) {
+            for (int col = 0; col < NUM_OF_COLS - 3; col++) {
+                Piece piece = pieces[col][row];
+                if (piece != Piece.EMPTY &&
+                        piece == pieces[col + 1][row] &&
+                        piece == pieces[col + 2][row] &&
+                        piece == pieces[col + 3][row]) {
+                    return new Winner(piece, col, row, col + 3, row);
                 }
             }
         }
+
+        for (int col = 0; col < NUM_OF_COLS; col++) {
+            for (int row = 0; row < NUM_OF_ROWS - 3; row++) {
+                Piece piece = pieces[col][row];
+                if (piece != Piece.EMPTY &&
+                        piece == pieces[col][row + 1] &&
+                        piece == pieces[col][row + 2] &&
+                        piece == pieces[col][row + 3]) {
+                    return new Winner(piece, col, row, col, row + 3);
+                }
+            }
+        }
+
         return new Winner(Piece.EMPTY);
     }
 }
