@@ -1,5 +1,7 @@
 package lk.ijse.dep.service;
 
+import java.util.Arrays;
+
 public class BoardImpl implements Board{
     private final Piece [][] pieces = new Piece[NUM_OF_COLS][NUM_OF_ROWS];
     private final BoardUI boardUI;
@@ -30,12 +32,7 @@ public class BoardImpl implements Board{
 
     @Override
     public boolean isLegalMove(int col) {
-        if (this.findNextAvailableSpot(col) != -1) {
-            return true;
-        } else {
-            return false;
-        }
-
+        return this.findNextAvailableSpot(col) != -1;
     }
 
     @Override
@@ -51,6 +48,16 @@ public class BoardImpl implements Board{
     @Override
     public void updateMove(int col, Piece move) {
         this.pieces[col][this.findNextAvailableSpot(col)]=move;
+    }
+
+    @Override
+    public void updateMove(int col, int row, Piece move) {
+        this.pieces[col][row]=move;
+    }
+
+    @Override
+    public Piece[][] getPiece() {
+        return this.pieces;
     }
 
     @Override
@@ -81,4 +88,5 @@ public class BoardImpl implements Board{
 
         return new Winner(Piece.EMPTY);
     }
+
 }

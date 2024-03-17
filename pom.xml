@@ -25,6 +25,7 @@
             <artifactId>jfoenix</artifactId>
             <version>9.0.1</version>
         </dependency>
+
     </dependencies>
 
     <build>
