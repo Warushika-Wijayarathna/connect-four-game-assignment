@@ -282,4 +282,84 @@ public class AiPlayer extends Player{
         return statePiece;
     }
 
+    /*
+
+    ++++++ Using MinMax Algorithm +++++++
+
+
+
+    public void movePiece(int col) {
+        col = findBestMove();
+        this.board.updateMove(col, Piece.GREEN);
+        this.board.getBoardUI().update(col, false);
+
+        Piece winningPiece = board.findWinner().getWinningPiece();
+        if (winningPiece.equals(Piece.EMPTY)) {
+            if (!board.existLegalMoves()) {
+                board.getBoardUI().notifyWinner(new Winner(Piece.EMPTY));
+            }
+        } else {
+            board.getBoardUI().notifyWinner(board.findWinner());
+        }
+    }
+
+    private int minimax(int depth, boolean maximizingPlayer) {
+        Piece winningPiece = board.findWinner().getWinningPiece();
+        if (winningPiece.equals(Piece.GREEN)) {
+            return 1;
+        }
+        if (winningPiece.equals(Piece.BLUE)) {
+            return -1;
+        }
+        if (depth == MAX_DEPTH || !board.existLegalMoves()) {
+            return 0;
+        }
+
+        int bestScore = maximizingPlayer ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+        for (int i = 0; i < NUM_OF_COLS; i++) {
+            if (board.isLegalMove(i)) {
+                int row = board.findNextAvailableSpot(i);
+                Piece piece = maximizingPlayer ? Piece.GREEN : Piece.BLUE;
+                board.updateMove(i, piece);
+                int score = minimax(depth + 1, !maximizingPlayer);
+                board.updateMove(i, row, Piece.EMPTY);
+
+                if ((maximizingPlayer && score == 1) || (!maximizingPlayer && score == -1)) {
+                    return score;
+                }
+
+                if (maximizingPlayer) {
+                    bestScore = Math.max(score, bestScore);
+                } else {
+                    bestScore = Math.min(score, bestScore);
+                }
+            }
+        }
+        return bestScore;
+    }
+
+    public int findBestMove() {
+        for (int i = 0; i < NUM_OF_COLS; i++) {
+            if (board.isLegalMove(i) && board.existLegalMoves()) {
+                int row = board.findNextAvailableSpot(i);
+                board.updateMove(i, Piece.GREEN);
+                int score = minimax(0, false);
+                board.updateMove(i, row, Piece.EMPTY);
+
+                if (score == 1) {
+                    return i;
+                }
+            }
+        }
+        return getRandomMove();
+    }
+
+    private int getRandomMove() {
+        int col;
+        do {
+            col = (int) (Math.random() * NUM_OF_COLS);
+        } while (!board.isLegalMove(col));
+        return col;
+    }*/
+
 }
